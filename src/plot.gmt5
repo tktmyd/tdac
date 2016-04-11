@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# plot example output by GMT5
+
+#
+# font size settings
+#
+gmt set FONT_ANNOT_PRIMARY   11p,Helvetica,black
+gmt set FONT_ANNOT_SECONDARY 10p,Helvetica,black
+gmt set FONT_LABEL           13p,Helvetica,black
+gmt set FONT_TITLE           14p,Helvetica,black
+
+#
+# Mapping
+#
+gmt set MAP_GRID_PEN_PRIMARY 0.25p,30/30/30,'.'
+gmt set MAP_FRAME_TYPE       plain
+
+#
+# Postscript
+#
+gmt set PS_IMAGE_COMPRESS    none
+gmt set PS_LINE_CAP          round
+gmt set PS_LINE_JOIN         round
+
+
+if [ ! -d fig ]; then
+  mkdir fig
+fi
+
+gmt makecpt -Cpolar -T-0.25/0.25/0.05 -Z -D > col.cpt
+for (( i=0; i<300; i++ ))
+do
+
+  j=$( echo $i | awk '{printf("%.6d", $1)}' )
+  tim=$( echo $j | awk '{printf("%.4d", $1*10)}')
+
+  echo $j
+
+  syn=./out/syn__${j}__.dat
+  da=./out/da__${j}__.dat
+  out=fig/$j.ps
+
+  gmt xyz2grd $syn -R0/400/0/400 -I2/2 -Gsyn.grd
+  gmt xyz2grd $da  -R0/400/0/400 -I2/2 -Gda.grd
+
+  gmt grdimage -JX10c/10c -R syn.grd -Ccol.cpt \
+    -Bxa100f50+l"x [km]" -Bya100f50+l"y [km]" -K -BWSen > $out
+
+  gmt psxy -J -R -O -K out/stloc.dat -Sc0.15c -Gdarkgray >> $out
+
+  gmt pstext -J -R -F+a0+j"LM"+f"14p,Helvetica-Bold,black" -N -O -K <<EOF>> $out
+    -40 460 t = ${tim} [s]
+EOF
+
+  gmt pstext -J -R -F+a0+j"LM"+f"11p,Helvetica,black" -N -O -K <<EOF>> $out
+    0 420 (a) assumed
+EOF
+
+  gmt grdimage -J -R da.grd -Ccol.cpt -X11c \
+    -Bxa100f50+l"x [km]" -Bya100f50+l"y [km]" -O -K -BwSen >> $out
+
+  gmt psxy -J -R -O out/stloc.dat -Sc0.15c -Gdarkgray  -K >> $out
+
+  gmt pstext -J -R -F+a0+j"LM"+f"11p,Helvetica,black" -N -O -K  <<EOF>> $out
+    0 420 (b) data-assimilated
+EOF
+
+  gmt psscale -Dx10.5c/0c+w10c/0.4c+e -Ccol.cpt -O >> $out
+
+  gmt psconvert -Tg -Au0.5c -E75 -Qg4 -Qt4 -P $out
+  rm -f $out
+
+done
+
+rm -f gmt.conf
+rm -f gmt.history
+rm -f col.cpt
+rm -f da.grd syn.grd

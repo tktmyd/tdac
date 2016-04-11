@@ -1,0 +1,11 @@
+# Compiled Object files and fortran modules
+*.o
+*.mod
+
+# Emacs backup files
+*~
+\#*
+.\#*
+
+# Mac
+.DS_Store
