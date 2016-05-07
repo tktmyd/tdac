@@ -6,13 +6,13 @@
 
 This code assimilates tsunami wave field from observation of tsunami height at discrete stations. The package contains a synthetic example of the tsunami data assimilation. The theory, synthetic tests and an application are described in the following accompanying papers:
 
-Maeda, T., K. Obara, M. Shinohara, T. Kanazawa, K. Uehira,
+Maeda, T., K. Obara, M. Shinohara, T. Kanazawa, K. Uehira (2015),
 Successive estimation of a tsunami wavefield without earthquake source data: A data assimilation approach toward real-time tsunami forecasting,
-_Geophys. Res. Lett._, _42_, 7923-7932, doi:[10.1002/2015GL065588](http://doi.org/10.1002/2015GL065588), 2015.
+_Geophys. Res. Lett._, _42_, 7923-7932, doi:[10.1002/2015GL065588](http://doi.org/10.1002/2015GL065588).
 
-Gusman, A. R., A. F. Sheehan, K. Stake, M. Heidarzadeh, I. E. Mulia, and T. Maeda,
+Gusman, A. R., A. F. Sheehan, K. Stake, M. Heidarzadeh, I. E. Mulia, and T. Maeda (2016),
 Tsunami data assimilation of high-density offshore pressure gauges off Cascade from the 2012 Haida Gwaii earthquake,
-under review.
+_Geophys. Res. Lett._, in press, doi:[10.1002/2016GL068368](http://doi.org/10.1002/2016GL068368).
 
 The authors request that the user to cite the accompanying papers in any publications that result from the use of this software, although this is not an obligation.
 
