@@ -7,7 +7,7 @@
 !!
 !! @see
 !!   Maeda  et al. (2015) GRL doi:10.1002/2015GL065588
-!!   Gusman et al. (2016) submitted
+!!   Gusman et al. (2016) GRL doi:10.1002/2016GL068368
 !<
 !! --
 program tdac
